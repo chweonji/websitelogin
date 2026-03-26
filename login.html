@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-page">
+
+<div class="background">
+  <div class="card">
+
+    <h1>Login</h1>
+    <p class="subtitle">Welcome back! Please login to your account</p>
+
+    <form>
+      <div class="input-group">
+        <input type="email" placeholder=" " required>
+        <label>Email</label>
+        <i class="fa-solid fa-user input-icon"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder=" "id="password" required>
+        <label>Password</label>
+        <span class="toggle-password" onclick="togglePassword(this)">
+          <i class="fa-solid fa-eye"></i>
+        </span>
+      </div>
+
+      <a href="forgot-password.html" class="forgot">Forgot password?</a>
+      
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="switch">
+      Don’t have an account?
+      <a href="signup.html">SIGN UP</a>
+    </p>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

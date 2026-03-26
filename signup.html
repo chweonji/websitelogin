@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="signup-page">
+
+<div class="background">
+  <div class="card signup-card">
+
+    <h1>Sign Up</h1>
+    <p class="subtitle">Create an account to get started</p>
+
+    <form id="signupForm" class="signup-form">
+
+  <div class="form-row">
+    <div class="input-group">
+      <input type="text" placeholder=" " required>
+      <label>Full Name</label>
+    </div>
+    
+    <div class="input-group">
+      <input 
+      type="text"
+      placeholder=""
+      onfocus="this.placeholder='mm/dd/yyyy'; this.type='date'"
+      onblur="if(!this.value){this.type='text'; this.placeholder=''}" required>
+      <label>Birthdate</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="input-group">
+      <input type="email" placeholder=" " required>
+      <label>Email</label>
+    </div>
+
+    <div class="input-group">
+      <input type="tel" placeholder=" " inputmode="numeric" pattern="[0-9]*" required>
+      <label>Phone Number</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="input-group">
+      <input type="password" placeholder=" " id="signupPassword" required>
+      <label>Password</label>
+      <span class="toggle-password" onclick="togglePassword(this)">
+        <i class="fa-solid fa-eye"></i>
+      </span>
+    </div>
+
+    <div class="input-group">
+      <input type="password" placeholder=" " id="confirmPassword" required>
+      <label>Confirm Password</label>
+    </div>
+  </div>
+
+  <div class="password-rules">
+        <p>Password must contain:</p>
+        <ul>
+          <li id="length">At least 8 characters</li>
+          <li id="uppercase">Upper & Lowercase</li>
+          <li id="number">One number</li>
+          <li id="special">One special character</li>
+        </ul>
+      </div>
+
+      <div class="switchh">
+        <p>Already have an account?
+          <a href="login.html">LOGIN</a>
+        </p>
+      </div>
+
+    <button type="submit" form="signupForm">Next</button>
+  </div>
+</div>
+</form>
+<script src="script.js"></script>
+</body>
+</html>

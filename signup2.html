@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="signup2-page">
+
+<div class="background" id="pageContent">
+  <div class="card">
+
+    <h1>Sign Up</h1>
+    <p class="subtitle">Create an account to get started</p>
+
+    <form id="signup2Form">
+      <div class="form-row">
+        <div class="input-group">
+          <input type="text" placeholder=" " required>
+          <label>Emergency Contact</label>
+        </div>
+
+        <div class="input-group">
+          <input type="tel" placeholder=" " inputmode="numeric" pattern="[0-9]*" required>
+          <label>Emergency Contact Phone Number</label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <input id="address" type="text" placeholder=" " required>
+          <label>Address</label>
+        </div>
+
+        <div class="input-group">
+          <input id="city" type="text" placeholder=" " required>
+          <label>City</label>
+        </div>
+      </div>
+
+      <div class="switchhh"> 
+        <p>Already have an account? 
+          <a href="login.html">LOGIN</a> 
+        </p> 
+      </div> 
+
+      <button type="submit">Create Account</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- MODAL OUTSIDE -->
+<div class="modal" id="successModal">
+  <div class="modal-box">
+    <h2>Congratulations! Account Successfully Created!</h2>
+    <p>Your account is being processed, Kindly wait for the confirmation.</p>
+    <button id="continueBtn">Continue</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>

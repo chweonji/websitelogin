@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Account Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="settingsstyle.css">
+</head>
+<body>
+
+<div id="pageContent">
+<div class="changepass-container">
+
+    <div class="changepassleft">
+        <h2>ACCOUNT SETTINGS</h2>
+        <img src="profile1.jpg" class="changepassprofile">
+        <div class="changepasslocation">TOKYO CITY</div>
+    </div>
+
+    <div class="changepassdivider"></div>
+    <div class="changepassright">
+        <a href="Tokyo_City_Landing_Page.html" class="changepassclose">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+
+        <label for="changepass-current" class="changepass-label">Current Password</label>
+        <div class="password-wrapper">
+            <input type="password" id="changepass-current" class="changepass-input">
+            <span class="toggle-password" onclick="togglePassword(this)">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
+        
+        <label for="changepass-new" class="changepass-label">New Password</label>
+        <div class="password-wrapper">
+            <input type="password" id="changepass-new" class="changepass-input">
+            <span class="toggle-password" onclick="togglePassword(this)">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
+
+        <div class="password-rules">
+            <p>Password must contain:</p>
+            <ul>
+                <li id="length">At least 8 characters</li>
+                <li id="uppercase">Upper & Lowercase</li>
+                <li id="number">One number</li>
+                <li id="special">One special character</li>
+            </ul>
+        </div>
+
+        <label for="changepass-confirm" class="changepass-label">Confirm New Password</label>
+        <input type="password" id="changepass-confirm" class="changepass-input">
+
+        <button id="updateBtn" class="changepassupdate">UPDATE PASSWORD</button>
+    </div>
+</div>
+</div>
+
+<form class="otp-Form">
+ 
+  <span class="mainHeading">Enter OTP</span>
+  <p class="otpSubheading">We have sent a verification code to your mobile number</p>
+  <div class="inputContainer">
+   <input maxlength="1" type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*">
+   <input maxlength="1" type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*">
+   <input maxlength="1" type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*">
+   <input maxlength="1" type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*">
+   
+  </div>
+   <button class="verifyButton" type="submit">Verify</button>
+     <button class="exitBtn">×</button>
+     <p class="resendNote">Didn't receive the code? <button class="resendBtn">Resend Code</button></p>
+     
+</form>
+
+<script>
+function togglePassword(element) {
+    const input = element.previousElementSibling;
+    const icon = element.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+const passwordInput = document.getElementById("changepass-new");
+
+const lengthRule = document.getElementById("length");
+const uppercaseRule = document.getElementById("uppercase");
+const numberRule = document.getElementById("number");
+const specialRule = document.getElementById("special");
+
+passwordInput.addEventListener("input", function () {
+  const value = passwordInput.value;
+
+  // At least 8 characters
+  if (value.length >= 8) {
+    lengthRule.classList.add("valid");
+  } else {
+    lengthRule.classList.remove("valid");
+  }
+
+  // Upper & Lowercase
+  if (/[a-z]/.test(value) && /[A-Z]/.test(value)) {
+    uppercaseRule.classList.add("valid");
+  } else {
+    uppercaseRule.classList.remove("valid");
+  }
+
+  // Number
+  if (/[0-9]/.test(value)) {
+    numberRule.classList.add("valid");
+  } else {
+    numberRule.classList.remove("valid");
+  }
+
+  // Special character
+  if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+    specialRule.classList.add("valid");
+  } else {
+    specialRule.classList.remove("valid");
+  }
+});
+
+/* SHOW OTP WHEN UPDATE PASSWORD IS CLICKED */
+const updateBtn = document.querySelector(".changepassupdate");
+const otpForm = document.querySelector(".otp-Form");
+const pageContent = document.getElementById("pageContent");
+const exitBtn = document.querySelector(".exitBtn");
+
+const currentInput = document.getElementById("changepass-current");
+const newInput = document.getElementById("changepass-new");
+const confirmInput = document.getElementById("changepass-confirm");
+
+// Create error message element
+const errorMsg = document.createElement("p");
+errorMsg.style.color = "red";
+errorMsg.style.fontSize = "13px";
+errorMsg.style.marginTop = "8px";
+
+document.querySelector(".changepassright").appendChild(errorMsg);
+
+// Example stored password (for demo only)
+const storedPassword = "OldPass123";
+
+updateBtn.addEventListener("click", function(e){
+    e.preventDefault();
+
+    const current = currentInput.value.trim();
+    const newPass = newInput.value.trim();
+    const confirm = confirmInput.value.trim();
+
+    errorMsg.textContent = "";
+
+    // 1️⃣ Check current password
+    if(current !== storedPassword){
+        errorMsg.textContent = "Current password is incorrect.";
+        return;
+    }
+
+    // 2️⃣ New password different from current
+    if(newPass === current){
+        errorMsg.textContent = "New password cannot be the same as current password.";
+        return;
+    }
+
+    // 3️⃣ Confirm password match
+    if(newPass !== confirm){
+        errorMsg.textContent = "New passwords do not match.";
+        return;
+    }
+
+    // 4️⃣ Check all password rules satisfied
+    if(!lengthRule.classList.contains("valid") ||
+       !uppercaseRule.classList.contains("valid") ||
+       !numberRule.classList.contains("valid") ||
+       !specialRule.classList.contains("valid")){
+        errorMsg.textContent = "Please meet all password requirements.";
+        return;
+    }
+
+    // ✅ If all good → show OTP
+    otpForm.style.display = "flex";
+    pageContent.classList.add("blur-background");
+    startOtpTimer();
+});
+
+/* CLOSE OTP */
+exitBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    otpForm.style.display = "none";
+    pageContent.classList.remove("blur-background");
+});
+
+
+/* AUTO MOVE OTP INPUT */
+const otpInputs = document.querySelectorAll(".otp-input");
+
+otpInputs.forEach((input, index) => {
+
+    input.addEventListener("input", function(){
+
+        // remove non-numbers
+        this.value = this.value.replace(/[^0-9]/g, "");
+        
+        // move to next box automatically
+        if(this.value.length === 1 && index < otpInputs.length - 1){
+            otpInputs[index + 1].focus();
+        }
+    });
+
+    input.addEventListener("keydown", function(e){
+
+        if(e.key === "Backspace" && this.value === "" && index > 0){
+            otpInputs[index - 1].focus();
+        }
+
+    });
+
+});
+
+
+/* 5 MINUTE OTP TIMER */
+
+let timeLeft = 300; // 5 minutes
+
+const timer = document.createElement("p");
+timer.id = "otpTimer";
+timer.style.fontSize = "12px";
+timer.style.color = "red";
+timer.style.marginTop = "-10px";
+
+document.querySelector(".otpSubheading").after(timer);
+
+function startOtpTimer(){
+
+    timeLeft = 300;
+
+    const countdown = setInterval(function(){
+
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        if(seconds < 10){
+            seconds = "0" + seconds;
+        }
+
+        timer.textContent = minutes + ":" + seconds;
+
+        timeLeft--;
+
+        if(timeLeft < 0){
+            clearInterval(countdown);
+            timer.textContent = "OTP Expired";
+        }
+
+    },1000);
+
+}
+</script>
+
+</body>
+</html>
