@@ -1,0 +1,175 @@
+/* BODY BACKGROUND */
+body {
+  margin: 0;
+  font-family: Segoe UI, sans-serif;
+  background: url('masterlistbg.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+ .navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  align-items: center;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: -1px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  display: inline-block;
+  margin: 0 20px;
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+  left: 24px;
+}
+
+.nav-links a::after {
+  content: '';
+  height: 3px;
+  width: 0%;
+  background: #000;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* LOGO IMAGE */
+.logo::before {
+  content: "";
+  width: 70px;
+  height: 70px;
+  background: url('profile2.png') no-repeat center;
+  background-size: contain;
+  margin-right: -5px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 20px;
+  padding: 10px 40px;
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.tabs .active {
+  border-bottom: 3px solid black;
+}
+
+/* SEARCH */
+.search-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 38px;
+  border-radius: 50px;
+}
+
+.search-bar input {
+  width: 250px;
+  padding: 8px;
+  border-radius: 50px;
+  border: 1px solid #fffcfc;
+}
+
+.container {
+  background: #ffffff;
+  margin: 20px 40px;
+  padding: 20px;
+  border-radius: 15px;
+  height: 52vh;
+  overflow-y: auto;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+}
+
+tbody td {
+  padding: 10px;
+  border-top: 1px solid #bbb;
+  font-size: 14px;
+}
+
+/* ALIGN LAST COLUMN (ACTION) */
+th:last-child,
+td:last-child {
+  text-align: right;
+  width: 150px;
+}
+
+/* HIDE SECTION */
+.hidden {
+  display: none;
+}
+
+/* ACTION BUTTONS */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.actions button {
+  border: none;
+  padding: 6px 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* APPROVE BUTTON */
+.approve {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* REJECT BUTTON */
+.reject {
+  background-color: #f44336;
+  color: white;
+}
+
+/* HOVER EFFECT */
+.actions button:hover {
+  opacity: 0.8;
+}

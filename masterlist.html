@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tokyo City Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="masterliststyle.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">TOKYO CITY</div>
+
+    <ul class="nav-links">
+        <li><a href="Tokyo_City_Landing_Page.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Advisor Toolkit</a></li>
+        <li><a href="settings.html">Elna Franco</a></li>
+    </ul>
+  </header>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="active" id="teamBtn">TEAM MEMBERS</button>
+    <button id="pendingBtn">PENDING REQUESTS</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search...">
+  </div>
+
+  <!-- TEAM MEMBERS -->
+  <div class="container" id="team-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Contact</th>
+          <th>Birthdate</th>
+          <th>Emergency Person</th>
+          <th>Emergency Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sample Name</td>
+          <td>Sample Address</td>
+          <td>09123456789</td>
+          <td>June 01, 2000</td>
+          <td>Emergency Name</td>
+          <td>09123456789</td>
+        </tr>
+        
+        <tr>
+          <td>Maria Santos</td>
+          <td>Quezon City</td>
+          <td>09876543210</td>
+          <td>March 15, 2001</td>
+          <td>Sofia Santos</td>
+          <td>09777777777</td>
+        </tr>
+
+        <tr>
+          <td>Maria Santos</td>
+          <td>Quezon City</td>
+          <td>09876543210</td>
+          <td>March 15, 2001</td>
+          <td>Sofia Santos</td>
+          <td>09777777777</td>
+        </tr>
+
+        <tr>
+          <td>Maria Santos</td>
+          <td>Quezon City</td>
+          <td>09876543210</td>
+          <td>March 15, 2001</td>
+          <td>Sofia Santos</td>
+          <td>09777777777</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PENDING REQUESTS -->
+  <div class="container hidden" id="pending-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+            <th>Contact Number</th>
+          <th style="text-align:right;">Approval</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Juan Dela Cruz</td>
+          <td>juan@sunlife.com.ph</td>
+          <td>09123456789</td>
+          <td class="actions">
+            <button class="approve">✔</button>
+            <button class="reject">✖</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const teamBtn = document.getElementById("teamBtn");
+    const pendingBtn = document.getElementById("pendingBtn");
+
+    const teamSection = document.getElementById("team-section");
+    const pendingSection = document.getElementById("pending-section");
+
+    // TAB SWITCHING
+    teamBtn.addEventListener("click", () => {
+      teamSection.classList.remove("hidden");
+      pendingSection.classList.add("hidden");
+
+      teamBtn.classList.add("active");
+      pendingBtn.classList.remove("active");
+    });
+
+    pendingBtn.addEventListener("click", () => {
+      pendingSection.classList.remove("hidden");
+      teamSection.classList.add("hidden");
+
+      pendingBtn.classList.add("active");
+      teamBtn.classList.remove("active");
+    });
+
+    // APPROVE / REJECT
+    document.addEventListener("click", function(e) {
+      if (e.target.classList.contains("approve")) {
+        alert("User Approved ✅");
+        e.target.closest("tr").remove();
+      }
+
+      if (e.target.classList.contains("reject")) {
+        alert("User Rejected ❌");
+        e.target.closest("tr").remove();
+      }
+    });
+
+    const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup", function () {
+  const value = searchInput.value.toLowerCase();
+
+  // get visible table only
+  const activeSection = !teamSection.classList.contains("hidden")
+    ? teamSection
+    : pendingSection;
+
+  const rows = activeSection.querySelectorAll("tbody tr");
+
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+
+    row.style.display = text.includes(value) ? "" : "none";
+  });
+});
+  </script>
+
+</body>
+</html>
