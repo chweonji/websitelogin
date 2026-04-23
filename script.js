@@ -78,73 +78,94 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // 🔹 SIGNUP STEP 2 PAGE
   // =========================
-  const signup2Form = document.getElementById("signup2Form");
-  const modal = document.getElementById("successModal");
-  const page = document.getElementById("pageContent");
+const signup2Form = document.getElementById("signup2Form");
+const modal = document.getElementById("successModal");
+const page = document.getElementById("pageContent");
+const continueBtn = document.getElementById("continueBtn");
 
-  if (signup2Form) {
-    signup2Form.addEventListener("submit", async function (e) {
-      e.preventDefault();
+if (signup2Form) {
+  signup2Form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-      const phoneInput = this.querySelector('input[type="tel"]');
-      if (phoneInput && !/^[0-9]*$/.test(phoneInput.value)) {
-        alert("Emergency contact phone number can only contain numbers.");
+    const phoneInput = this.querySelector('input[type="tel"]');
+    if (phoneInput && !/^[0-9]*$/.test(phoneInput.value)) {
+      alert("Emergency contact phone number can only contain numbers.");
+      return;
+    }
+
+    const textInputs = this.querySelectorAll('input[type="text"]');
+    const emergencyContactInput = textInputs[0];
+    const address = document.getElementById("address")?.value.trim();
+    const city = document.getElementById("city")?.value.trim();
+
+    if (
+      emergencyContactInput &&
+      emergencyContactInput.value &&
+      !/^[A-Z]/.test(emergencyContactInput.value)
+    ) {
+      alert("Emergency Contact must start with a capital letter.");
+      return;
+    }
+
+    if (city && !/^[A-Z]/.test(city)) {
+      alert("City must start with a capital letter.");
+      return;
+    }
+
+    if (!address || !city) {
+      alert("Please complete address and city.");
+      return;
+    }
+
+    const fullAddress = `${address}, ${city}, Philippines`;
+
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          fullAddress
+        )}&addressdetails=1&limit=1&countrycodes=ph`
+      );
+      const data = await response.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        alert("Address not found. Please enter a real address.");
         return;
       }
 
-      const textInputs = this.querySelectorAll('input[type="text"]');
-      const emergencyContactInput = textInputs[0];
-      const address = document.getElementById("address")?.value.trim();
-      const city = document.getElementById("city")?.value.trim();
+      const result = data[0];
+      const addressDetails = result.address || {};
+      const returnedCity = (
+        addressDetails.city ||
+        addressDetails.town ||
+        addressDetails.village ||
+        addressDetails.municipality ||
+        addressDetails.country ||
+        addressDetails.state ||
+        ""
+      ).toLowerCase();
 
-      if (emergencyContactInput && emergencyContactInput.value && !/^[A-Z]/.test(emergencyContactInput.value)) {
-        alert("Emergency Contact must start with a capital letter.");
+      if (!returnedCity.includes(city.toLowerCase())) {
+        alert("The city does not match a valid location in the Philippines.");
         return;
       }
 
-      if (city && !/^[A-Z]/.test(city)) {
-        alert("City must start with a capital letter.");
-        return;
-      }
+      if (modal) modal.style.display = "flex";
+      if (page) page.classList.add("blur");
+    } catch (err) {
+      console.error(err);
+      alert("Error validating address. Please try again.");
+    }
+  });
+}
 
-      if (!address || !city) {
-        alert("Please complete address and city.");
-        return;
-      }
-
-      const fullAddress = `${address}, ${city}, Philippines`;
-
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1`
-        );
-        const data = await response.json();
-
-        if (data.length === 0) {
-          alert("Address not found.");
-          return;
-        }
-
-        if (modal) modal.style.display = "flex";
-        if (page) page.classList.add("blur");
-
-      } catch {
-        alert("Error validating address.");
-      }
-    });
-  }
-
-  // 🔹 CONTINUE BUTTON (MODAL)
-  const continueBtn = document.getElementById("continueBtn");
-
-  if (continueBtn) {
-    continueBtn.onclick = function () {
-      if (modal) modal.style.display = "none";
-      if (page) page.classList.remove("blur");
-      window.location.href = "login.html";
-    };
-  }
-
+if (continueBtn) {
+  continueBtn.onclick = function () {
+    if (modal) modal.style.display = "none";
+    if (page) page.classList.remove("blur");
+    window.location.href = "login.html";
+  };
+}
+  
   // =========================
   // 🔹 FORGOT PASSWORD PAGE
   // =========================
